@@ -1,12 +1,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig({
+// Use different base paths per deploy target.
+// - Netlify / local dev: '/' (root)
+// - GitHub Pages: '/Ecommerce-Project/' (your repo name)
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
-  // IMPORTANT: case-sensitive repo name for GitHub Pages
-  base: '/Ecommerce-Project/',
+  base: mode === 'gh-pages' ? '/Ecommerce-Project/' : '/',
   build: {
-    outDir: 'dist', // must be 'dist' for gh-pages
+    outDir: 'dist',
+    emptyOutDir: true,
   },
-});
-
+}));

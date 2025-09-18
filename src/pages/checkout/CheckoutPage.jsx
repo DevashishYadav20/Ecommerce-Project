@@ -38,7 +38,8 @@ export default function CheckoutPage({ cart, loadCart }) {
           </div>
 
           <div className="checkout-header-right-section">
-            <img src="images/icons/checkout-lock-icon.png" alt="Secure" />
+            <img src={`${import.meta.env.BASE_URL}images/icons/checkout-lock-icon.png`} alt="Secure" />
+
           </div>
         </div>
       </div>

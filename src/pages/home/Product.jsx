@@ -1,5 +1,4 @@
 import { api } from '../../utils/api';
-
 import { useState } from 'react';
 import { formatMoney } from '../../utils/money';
 
@@ -9,7 +8,7 @@ export function Product({ product, loadCart }) {
   const addToCart = async () => {
     await api.post('/api/cart-items', {
       productId: product.id,
-      quantity
+      quantity,
     });
     await loadCart();
   };
@@ -20,56 +19,60 @@ export function Product({ product, loadCart }) {
   };
 
   return (
-    <div className="product-container"
-      data-testid="product-container">
+    <div className="product-container" data-testid="product-container">
       <div className="product-image-container">
-        <img className="product-image"
+        {/* Prefix with BASE_URL so GitHub Pages finds the asset */}
+        <img
+          className="product-image"
           data-testid="product-image"
-          src={product.image} />
+          src={`${import.meta.env.BASE_URL}${product.image}`}
+          alt={product.name}
+        />
       </div>
 
-      <div className="product-name limit-text-to-2-lines">
-        {product.name}
-      </div>
+      <div className="product-name limit-text-to-2-lines">{product.name}</div>
 
       <div className="product-rating-container">
-        <img className="product-rating-stars"
+        <img
+          className="product-rating-stars"
           data-testid="product-rating-stars-image"
-          src={`images/ratings/rating-${product.rating.stars * 10}.png`} />
+          src={`${import.meta.env.BASE_URL}images/ratings/rating-${
+            product.rating.stars * 10
+          }.png`}
+          alt="Rating"
+        />
         <div className="product-rating-count link-primary">
           {product.rating.count}
         </div>
       </div>
 
-      <div className="product-price">
-        {formatMoney(product.priceCents)}
-      </div>
+      <div className="product-price">{formatMoney(product.priceCents)}</div>
 
       <div className="product-quantity-container">
         <select value={quantity} onChange={selectQuantity}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
+          {[...Array(10)].map((_, i) => (
+            <option key={i + 1} value={i + 1}>
+              {i + 1}
+            </option>
+          ))}
         </select>
       </div>
 
       <div className="product-spacer"></div>
 
       <div className="added-to-cart">
-        <img src="images/icons/checkmark.png" />
+        <img
+          src={`${import.meta.env.BASE_URL}images/icons/checkmark.png`}
+          alt="Checkmark"
+        />
         Added
       </div>
 
-      <button className="add-to-cart-button button-primary"
+      <button
+        className="add-to-cart-button button-primary"
         data-testid="add-to-cart-button"
-        onClick={addToCart}>
+        onClick={addToCart}
+      >
         Add to Cart
       </button>
     </div>
