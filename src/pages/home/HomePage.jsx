@@ -10,6 +10,9 @@ export function HomePage({ cart, loadCart }) {
 
   useEffect(() => {
     const getHomeData = async () => {
+      // Pre-warm the backend (Render free tier can be asleep)
+      await api.get(ENDPOINTS.health).catch(() => {});
+
       const { data } = await api.get(ENDPOINTS.products);
       setProducts(data);
     };
