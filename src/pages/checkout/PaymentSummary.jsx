@@ -1,22 +1,20 @@
 import { api } from '../../utils/api';
-
-import { useNavigate } from 'react-router';
+import { ENDPOINTS } from '../../utils/endpoints';
+import { useNavigate } from 'react-router-dom';
 import { formatMoney } from '../../utils/money';
 
 export function PaymentSummary({ paymentSummary, loadCart }) {
   const navigate = useNavigate();
 
   const createOrder = async () => {
-    await api.post('/api/orders');
+    await api.post(ENDPOINTS.orders);
     await loadCart();
     navigate('/orders');
   };
 
   return (
     <div className="payment-summary">
-      <div className="payment-summary-title">
-        Payment Summary
-      </div>
+      <div className="payment-summary-title">Payment Summary</div>
 
       {paymentSummary && (
         <>
@@ -55,8 +53,7 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
             </div>
           </div>
 
-          <button className="place-order-button button-primary"
-            onClick={createOrder}>
+          <button className="place-order-button button-primary" onClick={createOrder}>
             Place your order
           </button>
         </>

@@ -1,12 +1,13 @@
-import { api } from '../../utils/api';
 import { useState } from 'react';
+import { api } from '../../utils/api';
+import { ENDPOINTS } from '../../utils/endpoints';
 import { formatMoney } from '../../utils/money';
 
 export function Product({ product, loadCart }) {
   const [quantity, setQuantity] = useState(1);
 
   const addToCart = async () => {
-    await api.post('/api/cart-items', {
+    await api.post(ENDPOINTS.cartItems, {
       productId: product.id,
       quantity,
     });
@@ -36,9 +37,7 @@ export function Product({ product, loadCart }) {
         <img
           className="product-rating-stars"
           data-testid="product-rating-stars-image"
-          src={`${import.meta.env.BASE_URL}images/ratings/rating-${
-            product.rating.stars * 10
-          }.png`}
+          src={`${import.meta.env.BASE_URL}images/ratings/rating-${product.rating.stars * 10}.png`}
           alt="Rating"
         />
         <div className="product-rating-count link-primary">

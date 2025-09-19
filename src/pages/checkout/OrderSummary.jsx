@@ -1,10 +1,11 @@
 import { api } from '../../utils/api';
+import { ENDPOINTS } from '../../utils/endpoints';
 import dayjs from 'dayjs';
 import { formatMoney } from '../../utils/money';
 import { DeliveryOptions } from './DeliveryOptions';
 
 export function OrderSummary({ cart, deliveryOptions, loadCart }) {
-  // If delivery options haven't loaded yet, avoid rendering broken dates.
+  // Avoid rendering broken dates before delivery options load
   if (!Array.isArray(deliveryOptions) || deliveryOptions.length === 0) {
     return <div className="order-summary" />;
   }
@@ -17,7 +18,7 @@ export function OrderSummary({ cart, deliveryOptions, loadCart }) {
         );
 
         const deleteCartItem = async () => {
-          await api.delete(`/api/cart-items/${cartItem.productId}`);
+          await api.delete(`${ENDPOINTS.cartItems}/${cartItem.productId}`);
           await loadCart();
         };
 
@@ -33,7 +34,6 @@ export function OrderSummary({ cart, deliveryOptions, loadCart }) {
             </div>
 
             <div className="cart-item-details-grid">
-              {/* IMPORTANT: prefix images with BASE_URL for GitHub Pages */}
               <img
                 className="product-image"
                 src={`${import.meta.env.BASE_URL}${cartItem.product.image}`}
@@ -53,9 +53,7 @@ export function OrderSummary({ cart, deliveryOptions, loadCart }) {
                     <span className="quantity-label">{cartItem.quantity}</span>
                   </span>
 
-                  <span className="update-quantity-link link-primary">
-                    Update
-                  </span>
+                  <span className="update-quantity-link link-primary">Update</span>
 
                   <span
                     className="delete-quantity-link link-primary"

@@ -1,6 +1,6 @@
 // src/pages/orders/TrackOrderPage.tsx
-import { Link } from "react-router-dom";
-import "./TrackOrderPage.css";
+import { Link } from 'react-router-dom';
+import './TrackOrderPage.css';
 
 export function TrackOrderPage() {
   return (
@@ -16,7 +16,7 @@ export function TrackOrderPage() {
 
       <button className="track-order-button">Track</button>
 
-      <div style={{ marginTop: "20px" }}>
+      <div style={{ marginTop: '20px' }}>
         <Link to="/" className="back-home-link">
           ← Back to Home
         </Link>

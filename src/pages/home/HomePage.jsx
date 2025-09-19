@@ -1,6 +1,6 @@
-import { api } from '../../utils/api';
-
 import { useEffect, useState } from 'react';
+import { api } from '../../utils/api';
+import { ENDPOINTS } from '../../utils/endpoints';
 import { Header } from '../../components/Header';
 import { ProductsGrid } from './ProductsGrid';
 import './HomePage.css';
@@ -10,10 +10,9 @@ export function HomePage({ cart, loadCart }) {
 
   useEffect(() => {
     const getHomeData = async () => {
-      const response = await api.get('/api/products');
-      setProducts(response.data);
+      const { data } = await api.get(ENDPOINTS.products);
+      setProducts(data);
     };
-
     getHomeData();
   }, []);
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { api } from '../../utils/api';           // <-- use your Axios instance
+import { api } from '../../utils/api';
+import { ENDPOINTS } from '../../utils/endpoints';
 import { OrderSummary } from './OrderSummary';
 import { PaymentSummary } from './PaymentSummary';
 import './checkout-header.css';
@@ -11,13 +12,15 @@ export default function CheckoutPage({ cart, loadCart }) {
 
   useEffect(() => {
     const fetchCheckoutData = async () => {
-      let response = await api.get(
-        '/api/delivery-options?expand=estimatedDeliveryTime'
+      // delivery options (with expand flag)
+      const { data: options } = await api.get(
+        `${ENDPOINTS.deliveryOptions}?expand=estimatedDeliveryTime`
       );
-      setDeliveryOptions(response.data);
+      setDeliveryOptions(options);
 
-      response = await api.get('/api/payment-summary');
-      setPaymentSummary(response.data);
+      // payment summary
+      const { data: summary } = await api.get(ENDPOINTS.paymentSummary);
+      setPaymentSummary(summary);
     };
 
     fetchCheckoutData();
@@ -38,8 +41,10 @@ export default function CheckoutPage({ cart, loadCart }) {
           </div>
 
           <div className="checkout-header-right-section">
-            <img src={`${import.meta.env.BASE_URL}images/icons/checkout-lock-icon.png`} alt="Secure" />
-
+            <img
+              src={`${import.meta.env.BASE_URL}images/icons/checkout-lock-icon.png`}
+              alt="Secure"
+            />
           </div>
         </div>
       </div>
@@ -62,6 +67,7 @@ export default function CheckoutPage({ cart, loadCart }) {
     </>
   );
 }
+
 
 
 
