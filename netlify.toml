@@ -1,0 +1,16 @@
+# ecommerce-project/netlify.toml
+
+[build]
+# Build the Vite app and publish the dist folder
+command = "npm run build"
+publish = "dist"
+
+[build.environment]
+# Use a modern Node runtime on Netlify
+NODE_VERSION = "20"
+
+# SPA routing for React Router (all paths serve index.html)
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
